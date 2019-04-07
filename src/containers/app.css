@@ -1,0 +1,135 @@
+.root {
+    margin-top: 40px;
+    display: flex;
+    flex-direction: row;
+    width: auto;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+
+
+}
+
+.navibar {
+    margin: 10px;
+    width: auto;
+    height: auto;
+    min-width: 0;
+    max-width: none;
+    min-height: 0;
+    max-height: none;
+    padding: 0;
+    display: block;
+    text-align: center;
+    order: 0;
+    align-self: auto;
+    flex-grow: 1;
+    flex-shrink: 1;
+    flex-basis: 50000px;
+
+}
+
+.select-menu {
+    margin: 10px;
+    width: auto;
+    height: auto;
+    min-width: 0;
+    max-width: none;
+    min-height: 0;
+    max-height: none;
+    padding: 0;
+    display: block;
+    text-align: center;
+    order: 0;
+    align-self: auto;
+    flex-grow: 1;
+    flex-shrink: 1;
+    flex-basis: auto;
+
+}
+
+.prev-button {
+    margin: 10px;
+    width: auto;
+    height: auto;
+    min-width: 0;
+    max-width: none;
+    min-height: 0;
+    max-height: none;
+    padding: 0;
+    display: block;
+    text-align: center;
+    order: 0;
+    align-self: center;
+    flex-grow: 1;
+    flex-shrink: 1;
+    max-width: 50px;
+}
+
+.next-button {
+    margin: 10px;
+    width: auto;
+    height: auto;
+    min-width: 0;
+    max-width: none;
+    min-height: 0;
+    max-height: none;
+    padding: 0;
+    display: block;
+    text-align: center;
+    order: 0;
+    align-self: center;
+    flex-grow: 1;
+    flex-shrink: 1;
+    max-width: 50px;
+}
+
+.select-menu-position {
+    position: sticky;
+    top: 10em;
+    min-height: 2em;
+    flex-basis: 350px;
+}
+
+.prev-button-position {
+    text-align: center;
+    position: sticky;
+    top: 10em;
+    min-height: 2em;
+    flex-basis: 350px;
+}
+
+.next-button-position {
+    text-align: center;
+    position: sticky;
+    top: 10em;
+    min-height: 2em;
+    flex-basis: 350px;
+}
+
+.report-list {
+    width: auto;
+    height: auto;
+    min-width: 0;
+    max-width: none;
+    min-height: 0;
+    max-height: none;
+    margin: 10px;
+    padding: 0;
+    display: block;
+    text-align: justify;
+    order: 0;
+    align-self: center;
+    flex-grow: 8;
+    flex-shrink: 1;
+    flex-basis: 350px;
+    max-width: 1000px;
+}
+
+.loading {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin: 0 -50% 0 0;
+    transform: translate(-50%, -50%);
+}
