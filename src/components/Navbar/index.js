@@ -22,7 +22,7 @@ class Navibar extends Component {
   render () {
     if (this.props.auth) {
       return (
-        <Navbar bg='light' variant='light'>
+        <Navbar bsPrefix='navbar' sticky='top' bg='light' variant='light'>
           <Navbar.Brand href='#home'>Navbar</Navbar.Brand>
           <Nav className='mr-auto'>
             <Nav.Link href='#home'>Home</Nav.Link>

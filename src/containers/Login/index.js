@@ -38,6 +38,7 @@ class Index extends Component {
 
   reduxFormControl = ({ input, meta, ...props }) => {
     return <Form.Control
+      size='sm'
       {...props}
       {...input}
     />
@@ -55,7 +56,7 @@ class Index extends Component {
               name='username'
               component={this.reduxFormControl}
               type='text'
-              placeholder='Имя пользователя'
+              placeholder='Имя'
               className='form-input'
               required
             />
@@ -70,25 +71,19 @@ class Index extends Component {
               required
             />
           </Form.Group>
-          <Button variant='dark'
-            type='submit'
-            size='sm'
-            onClick={event => this.onLogin(event)}
-          >
-            Вход
-          </Button>
+          <Form.Row className='row justify-content-md-center'>
+            <Button variant='dark'
+                    type='submit'
+                    size='sm'
+                    onClick={event => this.onLogin(event)}
+            >
+              Вход
+            </Button>
+          </Form.Row>
         </Form>
       )
     } else {
-      return (
-        <NavItem disabled>
-          {this.props.loggedIn}
-          {' '}
-          <Button bsSize='xsmall' onClick={event => this.onUnlogin(event)}>
-            <FaSignOutAlt glyph='log-out' /> Выход
-          </Button>
-        </NavItem>
-      )
+      return null
     }
   }
 }

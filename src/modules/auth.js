@@ -11,18 +11,25 @@ export const LOGIN_TO_SYSTEM_FAILED = 'LOGIN_TO_SYSTEM_FAILED'
 export const DATA_HAS_LOADED_AFTER_LOGIN = 'DATA_HAS_LOADED_AFTER_LOGIN'
 
 export const loginToSystem = () => async (dispatch, getState) => {
+  await login('/api/auth/login', dispatch, getState)
+}
+
+export const sessionCheck = () => async (dispatch, getState) => {
+  await login('/api/auth/session-login', dispatch, getState)
+}
+
+const login = async (url, dispatch, getState) => {
   dispatch({
     type: LOGIN_TO_SYSTEM
   })
-  const res = await axios.post('/api/auth/login', getState().form.login.values)
-  console.log(res)
-  if (res.status === 200) {
+  try {
+    const res = await axios.post(url, getState().form.login.values)
     dispatch({
       type: LOGIN_TO_SYSTEM_SUCCESS,
-      payload: auth.username
+      payload: res.data.user.username
     })
     afterLogin(dispatch, getState().requestConditions)
-  } else {
+  } catch (err) {
     dispatch({
       type: LOGIN_TO_SYSTEM_FAILED
     })
@@ -59,7 +66,7 @@ const auth = (state = initialState, action) => {
     return { ...state, login: action.payload, isLogging: false, loggedIn: true }
     break
   case LOGIN_TO_SYSTEM_FAILED:
-    return { ...state, login: '', isLogging: false, loggedIn: false }
+    return { ...state, login: '', isLogging: false, loggedIn: false, isLoading: false }
     break
   case EXIT_FROM_SYSTEM:
     return { ...state, loggedIn: false, login: '' }

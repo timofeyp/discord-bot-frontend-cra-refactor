@@ -4,39 +4,44 @@ import axios from 'axios/index'
 import './app.css'
 import { connect } from 'react-redux'
 import ReportList from 'containers/ReportsCarousel'
-import Navibar from 'components/Navbar'
+import Navbar from 'components/Navbar'
 import Settings from 'containers/Settings'
-import { loginToSystem } from 'modules/auth'
+import { loginToSystem, sessionCheck } from 'modules/auth'
 import { Switch, Route, withRouter } from 'react-router-dom'
 import Login from 'containers/Login'
+import { compose } from 'redux'
+import { reduxForm } from 'redux-form'
 
 class App extends Component {
   async componentDidMount () {
-    if (localStorage.getItem('jwtToken')) {
-      axios.defaults.headers.common['Authorization'] = localStorage.getItem('jwtToken')
-      await this.props.onLogin(null, { jwt: localStorage.getItem('jwtToken') })
-      this.setState({ dataHasGot: true })
-    }
+    this.props.sessionCheck()
   }
 
+  loadingCheck = () => !this.props.auth.dataHasLoaded && this.props.auth.isLoading
+
   render () {
-    if (!this.props.auth.dataHasLoaded && this.props.auth.isLoading) {
+    if (this.loadingCheck()) {
       return <div className={'loading'}>LOADING</div>
     } else {
       return (
-        <div className={'root'}>
+        <div className={this.props.auth.loggedIn ? 'root-auth' : 'root-no-auth'}>
           <Login />
+          <Navbar />
         </div>
       )
     }
   }
 }
 
+const mapStateToProps = state => ({
+  auth: state.auth
+})
+
+const mapDispatchToProps = {
+  sessionCheck
+}
+
 export default connect(
-  state => ({
-    auth: state.auth
-  }),
-  dispatch => ({
-    onLogin: (event, authData) => dispatch(loginToSystem(event, authData))
-  })
+  mapStateToProps,
+  mapDispatchToProps
 )(App)
