@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react'
+import { Container, Row, Col } from 'react-bootstrap'
 import axios from 'axios/index'
 import './app.css'
 import { connect } from 'react-redux'
@@ -7,9 +8,9 @@ import Navibar from 'components/Navbar'
 import Settings from 'containers/Settings'
 import { loginToSystem } from 'modules/auth'
 import { Switch, Route, withRouter } from 'react-router-dom'
+import Login from 'containers/Login'
 
 class App extends Component {
-
   async componentDidMount () {
     if (localStorage.getItem('jwtToken')) {
       axios.defaults.headers.common['Authorization'] = localStorage.getItem('jwtToken')
@@ -24,10 +25,7 @@ class App extends Component {
     } else {
       return (
         <div className={'root'}>
-          <Navibar />
-          <div className={'report-list'}>
-            <ReportList/>
-          </div>
+          <Login />
         </div>
       )
     }

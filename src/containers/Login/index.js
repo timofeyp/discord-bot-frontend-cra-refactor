@@ -1,9 +1,12 @@
 import React, { Component } from 'react'
 import './login.css'
-import { Navbar, FormControl, FormGroup, Button, NavItem, Glyphicon, Form } from 'react-bootstrap'
+import { Navbar, FormControl, FormGroup, Button, NavItem, InputGroup, Form, Col } from 'react-bootstrap'
+import { compose } from 'redux'
 import { connect } from 'react-redux'
+import { Field, reduxForm } from 'redux-form'
 import { EXIT_FROM_SYSTEM, getReports } from 'modules/auth'
-import { loginToSystem } from 'modules/auth'
+import { FaSignOutAlt, FaDiscord } from 'react-icons/fa'
+import { onExit, loginToSystem } from 'modules/auth'
 
 class Index extends Component {
   constructor () {
@@ -28,18 +31,53 @@ class Index extends Component {
     localStorage.removeItem('jwtToken')
   }
 
+  onLogin = (e) => {
+    e.preventDefault()
+    this.props.loginToSystem()
+  }
+
+  reduxFormControl = ({ input, meta, ...props }) => {
+    return <Form.Control
+      {...props}
+      {...input}
+    />
+  }
+
   render () {
     if (!this.props.loggedIn) {
       return (
-        <Navbar.Form pullRight>
-          <FormGroup bsSize='small'>
-            <FormControl type='email' placeholder='Имя' onChange={e => this.onChange(e)} name='username' />
-          </FormGroup>{' '}
-          <FormGroup bsSize='small'>
-            <FormControl type='password' placeholder='Пароль' onChange={e => this.onChange(e)} name='password' />
-          </FormGroup>{' '}
-          <Button bsSize='xsmall' onClick={e => this.props.onLogin(e, this.state)}>Вход</Button>
-        </Navbar.Form>
+        <Form className='login-form'>
+          <Form.Row className='row justify-content-md-center'>
+            <Form.Label className='login-form-label'><FaDiscord className='login-form-icon' /></Form.Label>
+          </Form.Row>
+          <Form.Group controlId='formBasicEmail'>
+            <Field
+              name='username'
+              component={this.reduxFormControl}
+              type='text'
+              placeholder='Имя пользователя'
+              className='form-input'
+              required
+            />
+          </Form.Group>
+          <Form.Group controlId='formBasicPassword'>
+            <Field
+              name='password'
+              component={this.reduxFormControl}
+              type='text'
+              placeholder='Пароль'
+              className='form-input'
+              required
+            />
+          </Form.Group>
+          <Button variant='dark'
+            type='submit'
+            size='sm'
+            onClick={event => this.onLogin(event)}
+          >
+            Вход
+          </Button>
+        </Form>
       )
     } else {
       return (
@@ -47,7 +85,7 @@ class Index extends Component {
           {this.props.loggedIn}
           {' '}
           <Button bsSize='xsmall' onClick={event => this.onUnlogin(event)}>
-            <Glyphicon glyph='log-out' /> Выход
+            <FaSignOutAlt glyph='log-out' /> Выход
           </Button>
         </NavItem>
       )
@@ -55,14 +93,21 @@ class Index extends Component {
   }
 }
 
-export default connect(
-  state => ({
-    loggedIn: state.auth.loggedIn
+const mapStateToProps = state => ({
+  loggedIn: state.auth.loggedIn
+})
+
+const mapDispatchToProps = {
+  onExit,
+  loginToSystem
+}
+
+export default compose(
+  reduxForm({
+    form: 'login'
   }),
-  dispatch => ({
-    onExit: () => {
-      dispatch({ type: EXIT_FROM_SYSTEM })
-    },
-    onLogin: (event, authData) => dispatch(loginToSystem(event, authData))
-  })
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )
 )(Index)

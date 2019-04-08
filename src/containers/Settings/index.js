@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import axios from 'axios/index'
-import { FormGroup, HelpBlock, ControlLabel, FormControl, Checkbox, Col, Row, ButtonGroup, ButtonToolbar, Button, Glyphicon } from 'react-bootstrap'
+import { Form, FormGroup, HelpBlock, ControlLabel, FormControl, Checkbox, Col, Row, ButtonGroup, ButtonToolbar, Button } from 'react-bootstrap'
 import connect from 'react-redux/es/connect/connect'
 import 'containers/Settings/settings.css'
 import { setSettings } from 'modules/settings'
@@ -8,6 +8,7 @@ import Questions from 'containers/Questions'
 import { compose } from 'redux'
 import { reduxForm, Field } from 'redux-form'
 import OutsideClickHandler  from 'react-outside-click-handler'
+import { FaPowerOff } from "react-icons/fa"
 
 
 class Index extends Component {
@@ -114,7 +115,7 @@ class Index extends Component {
           controlId='formBasicText'
           validationState={this.getValidationState()}
         >
-          <ControlLabel>Токен <Glyphicon glyph='off' style={{ color: this.state.onlineStatus ? 'green' : 'red' }} /></ControlLabel>
+          <Form.Label>Токен <FaPowerOff style={{ color: this.state.onlineStatus ? 'green' : 'red' }} /></Form.Label>
 
 
           <OutsideClickHandler  onOutsideClick={this.handleClickOutsideToken} >
@@ -130,16 +131,16 @@ class Index extends Component {
           </OutsideClickHandler>
 
           <FormControl.Feedback />
-          <HelpBlock>После ввода токена бот подключится автоматически</HelpBlock>
+          <Form.Text className="text-muted">После ввода токена бот подключится автоматически</Form.Text>
         </FormGroup>
         <FormGroup >
-          <Checkbox inline onChange={() => this.handleCheckbox(1)} checked={this.state.checkbox.includes(1)}>Пн</Checkbox>
-          <Checkbox inline onChange={() => this.handleCheckbox(2)} checked={this.state.checkbox.includes(2)}>Вт</Checkbox>
-          <Checkbox inline onChange={() => this.handleCheckbox(3)} checked={this.state.checkbox.includes(3)}>Ср</Checkbox>
-          <Checkbox inline onChange={() => this.handleCheckbox(4)} checked={this.state.checkbox.includes(4)}>Чт</Checkbox>
-          <Checkbox inline onChange={() => this.handleCheckbox(5)} checked={this.state.checkbox.includes(5)}>Пт</Checkbox>
-          <Checkbox inline onChange={() => this.handleCheckbox(6)} checked={this.state.checkbox.includes(6)}>Сб</Checkbox>
-          <Checkbox inline onChange={() => this.handleCheckbox(7)} checked={this.state.checkbox.includes(7)}>Вс</Checkbox>
+          <Form.Check inline onChange={() => this.handleCheckbox(1)} checked={this.state.checkbox.includes(1)}>Пн</Form.Check>
+          <Form.Check inline onChange={() => this.handleCheckbox(2)} checked={this.state.checkbox.includes(2)}>Вт</Form.Check>
+          <Form.Check inline onChange={() => this.handleCheckbox(3)} checked={this.state.checkbox.includes(3)}>Ср</Form.Check>
+          <Form.Check inline onChange={() => this.handleCheckbox(4)} checked={this.state.checkbox.includes(4)}>Чт</Form.Check>
+          <Form.Check inline onChange={() => this.handleCheckbox(5)} checked={this.state.checkbox.includes(5)}>Пт</Form.Check>
+          <Form.Check inline onChange={() => this.handleCheckbox(6)} checked={this.state.checkbox.includes(6)}>Сб</Form.Check>
+          <Form.Check inline onChange={() => this.handleCheckbox(7)} checked={this.state.checkbox.includes(7)}>Вс</Form.Check>
           &nbsp;
           <div className={'time-change'} >
             <ButtonToolbar>

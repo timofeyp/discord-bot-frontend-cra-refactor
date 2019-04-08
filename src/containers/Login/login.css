@@ -40,3 +40,15 @@ body {
 .form-signin p {
     margin-top: 10px;
 }
+
+.login-form {
+    position: center;
+    display: block;
+    border: 1px solid grey;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.login-form-icon {
+ font-size: 2em;
+}

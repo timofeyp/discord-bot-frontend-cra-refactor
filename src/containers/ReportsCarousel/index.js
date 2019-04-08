@@ -60,11 +60,7 @@ class Index extends Component {
         </div>
       )
     } else {
-      return (
-        <Alert bsStyle='danger' ref={'list'}>
-          <strong>Необходимо выполнить вход для доступа к данным!</strong>
-        </Alert>
-      )
+      return null
     }
   }
 }
