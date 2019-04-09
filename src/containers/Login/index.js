@@ -8,6 +8,10 @@ import { EXIT_FROM_SYSTEM, getReports } from 'modules/auth'
 import { FaSignOutAlt, FaDiscord } from 'react-icons/fa'
 import { onExit, loginToSystem } from 'modules/auth'
 
+
+@reduxForm({
+  form: 'login'
+})
 class Index extends Component {
   constructor () {
     super()
@@ -98,9 +102,6 @@ const mapDispatchToProps = {
 }
 
 export default compose(
-  reduxForm({
-    form: 'login'
-  }),
   connect(
     mapStateToProps,
     mapDispatchToProps
