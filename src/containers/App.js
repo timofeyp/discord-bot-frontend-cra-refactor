@@ -27,6 +27,10 @@ class App extends Component {
         <div className={this.props.auth.loggedIn ? 'root-auth' : 'root-no-auth'}>
           <Login />
           <Navbar />
+          <Switch>
+            <Route exact path='/' component={ReportList} />
+            <Route path='/settings' component={Settings} />
+          </Switch>
         </div>
       )
     }
@@ -41,7 +45,7 @@ const mapDispatchToProps = {
   sessionCheck
 }
 
-export default connect(
+export default withRouter(connect(
   mapStateToProps,
   mapDispatchToProps
-)(App)
+)(App))

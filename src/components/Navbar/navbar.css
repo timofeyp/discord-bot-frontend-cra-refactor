@@ -76,3 +76,18 @@
     flex-basis: 500px;
 
 }
+
+.navbar-width-style {
+    width: 75vw;
+    max-width: 1000px;
+}
+
+@media screen and (max-width: 650px) {
+    .navbar-width-style  {
+        width: 100vw;
+    }
+}
+
+.menu-text {
+    color: black
+}

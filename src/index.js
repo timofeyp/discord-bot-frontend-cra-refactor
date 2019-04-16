@@ -5,7 +5,7 @@ import { createStore, applyMiddleware } from 'redux'
 import { composeWithDevTools } from 'redux-devtools-extension'
 import thunk from 'redux-thunk'
 import App from 'containers/App'
-import { BrowserRouter } from 'react-router-dom'
+import { MemoryRouter } from 'react-router-dom'
 import './bootstrap.min.css'
 import 'containers/app.css'
 import combineReducers from 'modules'
@@ -20,9 +20,9 @@ export default store
 
 ReactDOM.render(
   <Provider store={store}>
-    <BrowserRouter>
+    <MemoryRouter>
       <App />
-    </BrowserRouter>
+    </MemoryRouter>
   </Provider>,
   document.getElementById('root')
 )

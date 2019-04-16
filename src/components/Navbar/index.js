@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { Navbar, Nav, Form, FormControl, Button } from 'react-bootstrap'
 import 'components/Navbar/navbar.css'
+import { NavLink } from 'react-router-dom'
+import { LinkContainer } from 'react-router-bootstrap'
 
 import { connect } from 'react-redux'
 import Calendar from 'containers/Calendar'
@@ -9,31 +11,30 @@ import Settings from 'containers/Settings'
 import OutsideClickHandler from 'react-outside-click-handler'
 
 class Navibar extends Component {
-  constructor (props) {
-    super(props)
-    this.myInput = React.createRef()
-  }
-  state = {
-    key: null
-  }
-  handleSelect = (key) => {
-    this.setState({ key })
-  }
   render () {
-    if (this.props.auth) {
+    if (this.props.auth.loggedIn) {
       return (
-        <Navbar bsPrefix='navbar' sticky='top' bg='light' variant='light'>
-          <Navbar.Brand href='#home'>Navbar</Navbar.Brand>
-          <Nav className='mr-auto'>
-            <Nav.Link href='#home'>Home</Nav.Link>
-            <Nav.Link href='#features'>Features</Nav.Link>
-            <Nav.Link href='#pricing'>Pricing</Nav.Link>
-          </Nav>
-          <Form inline>
-            <FormControl type='text' placeholder='Search' className='mr-sm-2' />
-            <Button variant='outline-primary'>Search</Button>
-          </Form>
-        </Navbar>
+        <Nav justify variant='tabs' defaultActiveKey='report'>
+          <LinkContainer to='/'>
+            <Nav.Item>
+              <Nav.Link className='menu-text' href='/' eventKey='report'>
+                Отчет
+              </Nav.Link>
+            </Nav.Item>
+          </LinkContainer>
+          <LinkContainer to='/settings'>
+            <Nav.Item>
+              <Nav.Link className='menu-text' href='/settings' eventKey='settings'>
+                Настройки
+              </Nav.Link>
+            </Nav.Item>
+          </LinkContainer>
+          <Nav.Item>
+            <Nav.Link eventKey='disabled' disabled>
+              {this.props.auth.login}
+            </Nav.Link>
+          </Nav.Item>
+        </Nav>
       )
     } else {
       return null
@@ -43,7 +44,7 @@ class Navibar extends Component {
 
 export default connect(
   state => ({
-    auth: state.auth.loggedIn
+    auth: state.auth
   }),
   dispatch => ({
   })

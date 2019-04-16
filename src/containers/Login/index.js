@@ -8,10 +8,6 @@ import { EXIT_FROM_SYSTEM, getReports } from 'modules/auth'
 import { FaSignOutAlt, FaDiscord } from 'react-icons/fa'
 import { onExit, loginToSystem } from 'modules/auth'
 
-
-@reduxForm({
-  form: 'login'
-})
 class Index extends Component {
   constructor () {
     super()
@@ -69,7 +65,7 @@ class Index extends Component {
             <Field
               name='password'
               component={this.reduxFormControl}
-              type='text'
+              type='password'
               placeholder='Пароль'
               className='form-input'
               required
@@ -102,6 +98,9 @@ const mapDispatchToProps = {
 }
 
 export default compose(
+  reduxForm({
+    form: 'login'
+  }),
   connect(
     mapStateToProps,
     mapDispatchToProps

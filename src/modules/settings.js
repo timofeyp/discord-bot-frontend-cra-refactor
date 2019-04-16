@@ -19,7 +19,6 @@ export const getSettings = (dispatch) => {
 
 export const setSettings = (settings) => {
   return async (dispatch, getState) => {
-    console.log(getState())
     dispatch({ type: SET_SETTINGS, payload: settings })
     await axios.post('/api/settings/set-settings-secure', settings)
     Promise.resolve()
