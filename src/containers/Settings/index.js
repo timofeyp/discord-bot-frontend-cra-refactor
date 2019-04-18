@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import axios from 'axios/index'
-import { Form, FormGroup, HelpBlock, ControlLabel, FormControl, Checkbox, Col, Row, ButtonGroup, ButtonToolbar, Button } from 'react-bootstrap'
+import { Form, InputGroup, HelpBlock, ControlLabel, FormControl, Checkbox, Col, Row, ButtonGroup, ButtonToolbar, Button } from 'react-bootstrap'
 import connect from 'react-redux/es/connect/connect'
 import 'containers/Settings/settings.css'
 import { setSettings } from 'modules/settings'
@@ -105,6 +105,19 @@ class Index extends Component {
     this.props.onSettingsChange({ ...this.props.settings, pollMinutes: ((this.props.settings.pollMinutes > 0) ? --this.props.settings.pollMinutes : 59) })
   }
 
+  checkButton = ({ input, ...props }) =>
+    <Form.Check
+      inline
+      custom
+      {...props} {...input}
+    />
+
+  formControl = ({ input, meta, ...props }) =>
+    <Form.Control
+      {...props}
+      {...input}
+    />
+
   render () {
     return (
       <form >
@@ -129,35 +142,40 @@ class Index extends Component {
           <FormControl.Feedback />
           <Form.Text className='text-muted'>После ввода токена бот подключится автоматически</Form.Text>
         </Form.Group>
-        <Form.Group >
-          <Form.Check type='checkbox' inline onChange={() => this.handleCheckbox(1)} checked={this.state.checkbox.includes(1)}>Пн</Form.Check>
-          <Form.Check type='checkbox' inline onChange={() => this.handleCheckbox(2)} checked={this.state.checkbox.includes(2)}>Вт</Form.Check>
-          <Form.Check type='checkbox' inline onChange={() => this.handleCheckbox(3)} checked={this.state.checkbox.includes(3)}>Ср</Form.Check>
-          <Form.Check type='checkbox' inline onChange={() => this.handleCheckbox(4)} checked={this.state.checkbox.includes(4)}>Чт</Form.Check>
-          <Form.Check type='checkbox' inline onChange={() => this.handleCheckbox(5)} checked={this.state.checkbox.includes(5)}>Пт</Form.Check>
-          <Form.Check type='checkbox' inline onChange={() => this.handleCheckbox(6)} checked={this.state.checkbox.includes(6)}>Сб</Form.Check>
-          <Form.Check type='checkbox' inline onChange={() => this.handleCheckbox(7)} checked={this.state.checkbox.includes(7)}>Вс</Form.Check>
-          &nbsp;
-          <div className={'time-change'} >
-            <ButtonToolbar>
-              <ButtonGroup bsSize='small'>
-                <Button onClick={(e) => this.handleClickHoursDown(e)}>-</Button>
-                <Button disabled>{this.props.settings.pollHours}</Button>
-                <Button onClick={(e) => this.handleClickHoursUp(e)}>+</Button>
-              </ButtonGroup>
-            </ButtonToolbar>
-            &nbsp;
-            &nbsp;
-            &nbsp;
-            <ButtonToolbar>
-              <ButtonGroup bsSize='small'>
-                <Button onClick={(e) => this.handleClickMinutesDown(e)}>-</Button>
-                <Button disabled>{this.props.settings.pollMinutes}</Button>
-                <Button onClick={(e) => this.handleClickMinutesUp(e)}>+</Button>
-              </ButtonGroup>
-            </ButtonToolbar>
-          </div>
-        </Form.Group>
+        <Row className='justify-content-md-center'>
+          { [ `Пн`, `Вт`, `Ср`, `Чт`, `Пт`, `Сб`, `Вс` ].map((day, i) => {
+            ++i
+            return <Field
+              name={`day.${i}`}
+              component={this.checkButton}
+              id={i}
+              label={`Пн`}
+              type={`checkbox`}
+            />
+          }
+          ) }
+        </Row>
+        <Row className='justify-content-md-center'>
+            <InputGroup className='input-time'>
+              <InputGroup.Prepend>
+                <InputGroup.Text>Ч</InputGroup.Text>
+              </InputGroup.Prepend>
+              <Field
+                name={`hours`}
+                component={this.formControl}
+                type={`text`}
+              />
+              <InputGroup.Prepend>
+                <InputGroup.Text>М</InputGroup.Text>
+              </InputGroup.Prepend>
+              <Field
+                name={`minutes`}
+                component={this.formControl}
+                type={`text`}
+              />
+            </InputGroup>
+        </Row>
+        <Row className='justify-content-md-center' />
         <Questions state={this.props.state} />
       </form>
     )
