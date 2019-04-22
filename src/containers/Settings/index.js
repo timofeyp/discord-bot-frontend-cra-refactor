@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
 import axios from 'axios/index'
-import { Form, InputGroup, HelpBlock, ControlLabel, FormControl, Checkbox, Col, Row, ButtonGroup, ButtonToolbar, Button } from 'react-bootstrap'
+import { Form, InputGroup, Container, ControlLabel, FormControl, Checkbox, Col, Row, ButtonGroup, ButtonToolbar, Button } from 'react-bootstrap'
 import connect from 'react-redux/es/connect/connect'
 import 'containers/Settings/settings.css'
 import { setSettings } from 'modules/settings'
 import Questions from 'containers/Questions'
 import { compose } from 'redux'
-import { reduxForm, Field } from 'redux-form'
+import { reduxForm, Field, FieldArray } from 'redux-form'
 import OutsideClickHandler from 'react-outside-click-handler'
 import { FaPowerOff } from 'react-icons/fa'
 
@@ -120,7 +120,7 @@ class Index extends Component {
 
   render () {
     return (
-      <form >
+      <Container className='settings-container'>
         <Form.Group
           controlId='formBasicText'
           validationState={this.getValidationState()}
@@ -129,10 +129,9 @@ class Index extends Component {
 
           <OutsideClickHandler onOutsideClick={this.handleClickOutsideToken} >
             <Field
-              className='text-input-form'
               type='text'
               name='token'
-              component='input'
+              component={this.formControl}
               value={this.state.token}
               placeholder='Необходимо ввести token бота'
               onChange={this.handleChangeToken}
@@ -142,42 +141,42 @@ class Index extends Component {
           <FormControl.Feedback />
           <Form.Text className='text-muted'>После ввода токена бот подключится автоматически</Form.Text>
         </Form.Group>
-        <Row className='justify-content-md-center'>
+        <Row className='justify-content-center'>
           { [ `Пн`, `Вт`, `Ср`, `Чт`, `Пт`, `Сб`, `Вс` ].map((day, i) => {
             ++i
             return <Field
               name={`day.${i}`}
               component={this.checkButton}
               id={i}
-              label={`Пн`}
+              label={day}
               type={`checkbox`}
             />
           }
           ) }
         </Row>
-        <Row className='justify-content-md-center'>
-            <InputGroup className='input-time'>
-              <InputGroup.Prepend>
-                <InputGroup.Text>Ч</InputGroup.Text>
-              </InputGroup.Prepend>
-              <Field
-                name={`hours`}
-                component={this.formControl}
-                type={`text`}
-              />
-              <InputGroup.Prepend>
-                <InputGroup.Text>М</InputGroup.Text>
-              </InputGroup.Prepend>
-              <Field
-                name={`minutes`}
-                component={this.formControl}
-                type={`text`}
-              />
-            </InputGroup>
+        <Row className='justify-content-center'>
+          <InputGroup className='input-time'>
+            <InputGroup.Prepend>
+              <InputGroup.Text>Ч</InputGroup.Text>
+            </InputGroup.Prepend>
+            <Field
+              name={`hours`}
+              component={this.formControl}
+              type={`text`}
+            />
+            <InputGroup.Prepend>
+              <InputGroup.Text>М</InputGroup.Text>
+            </InputGroup.Prepend>
+            <Field
+              name={`minutes`}
+              component={this.formControl}
+              type={`text`}
+            />
+          </InputGroup>
         </Row>
         <Row className='justify-content-md-center' />
-        <Questions state={this.props.state} />
-      </form>
+        <FieldArray name='questions' component={Questions} />
+      </Container>
     )
   }
 }

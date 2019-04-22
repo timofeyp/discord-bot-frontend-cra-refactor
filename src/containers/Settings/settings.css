@@ -36,3 +36,7 @@
 .input-time {
     max-width: 10em;
 }
+
+.container {
+    max-width: 470px;
+}
