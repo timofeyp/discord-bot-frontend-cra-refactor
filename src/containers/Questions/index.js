@@ -1,14 +1,8 @@
-import React, { Component } from 'react'
-import {
-  FormGroup,
-  Row,
-  Col, Form
-} from 'react-bootstrap'
+import React from 'react'
+import { Col, Form } from 'react-bootstrap'
 import { connect } from 'react-redux'
-import { compose } from 'redux'
-import { reduxForm, Field, FieldArray } from 'redux-form'
+import { Field } from 'redux-form'
 import 'containers/Questions/questions.css'
-import OutsideClickHandler from 'react-outside-click-handler'
 import { setQuetion } from 'modules/questions'
 
 const formControl = ({ input, ...props }) =>
@@ -20,19 +14,20 @@ const formControl = ({ input, ...props }) =>
 const Questions = () => {
   const arr = [1, 2, 3]
   return arr.map((el, i) =>
-    <Row>
-      <Col xs={12} md={12}>
-        <OutsideClickHandler >
+    <Form.Row className='justify-content-center'>
+      <Col lg={6}>
+        <Form.Group
+        >
           <Field
-            className='text-input-form'
-            name={++i}
+            name={`questions.${i}`}
             component={formControl}
             type='text'
-            placeholder={`Вопрос ${i}`}
+            placeholder={`Вопрос ${++i}`}
           />
-        </OutsideClickHandler>
+        </Form.Group>
       </Col>
-    </Row>
+    </Form.Row>
+
   )
 }
 
@@ -49,12 +44,8 @@ const Connected = connect(
   mapDispatchToProps
 )(Questions)
 
-export default compose(
-  reduxForm({
-    form: 'questions'
-  }),
-  connect(
-    mapStateToProps,
-    mapDispatchToProps
-  )
+export default
+connect(
+  mapStateToProps,
+  mapDispatchToProps
 )(Connected)

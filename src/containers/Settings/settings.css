@@ -35,8 +35,9 @@
 
 .input-time {
     max-width: 10em;
+    padding: 12px;
 }
 
-.container {
+.col-width {
     max-width: 470px;
 }
