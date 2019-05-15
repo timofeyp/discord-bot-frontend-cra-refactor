@@ -19,12 +19,10 @@ export const setQuetion = (num, text) => {
   }
 }
 
-export const addQuestion = (num, text) => {
-  return async (dispatch, getState) => {
-    await axios.post('/api/questions/set-questions-secure', { num: (num + 1), text })
+export const addQuestion = num => async (dispatch, getState) => {
+    await axios.post('/api/questions/add-questions-secure', { num })
     Promise.resolve()
     dispatch(getQuestions())
-  }
 }
 
 

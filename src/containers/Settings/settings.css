@@ -55,3 +55,7 @@
     width: -webkit-fill-available;
     margin: 1px;
 }
+
+.question-num-disabled-field {
+    min-width: 3em;
+}

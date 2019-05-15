@@ -14,15 +14,10 @@ const checkButton = ({ input, ...props }) =>
     {...props} {...input}
   />
 
-const formControl = ({ input, ...props }) =>
-  <Form.Control
-    {...props}
-    {...input}
-  />
-
 const days = () =>
   [ `Пн`, `Вт`, `Ср`, `Чт`, `Пт`, `Сб`, `Вс` ].map((day, i) =>
     <Field
+      key={i}
       name={`days.${i}`}
       component={checkButton}
       id={`days.${i}`}
@@ -45,7 +40,8 @@ let settings = ({ getSettings, settings }) => {
             <Field
               type='text'
               name='token'
-              component={formControl}
+              component='input'
+              className='form-control'
               placeholder='discord application token'
             />
             <FormControl.Feedback />
@@ -62,15 +58,17 @@ let settings = ({ getSettings, settings }) => {
           </InputGroup.Prepend>
           <Field
             name={`hours`}
-            component={formControl}
+            component='input'
+            className='form-control'
             type={`text`}
           />
-          <InputGroup.Prepend>
+          <InputGroup.Append>
             <InputGroup.Text>М</InputGroup.Text>
-          </InputGroup.Prepend>
+          </InputGroup.Append>
           <Field
             name={`minutes`}
-            component={formControl}
+            component='input'
+            className='form-control'
             type={`text`}
           />
         </InputGroup>
