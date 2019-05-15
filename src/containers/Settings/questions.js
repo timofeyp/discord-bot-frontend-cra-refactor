@@ -1,9 +1,8 @@
 import React from 'react'
-import { Col, Form } from 'react-bootstrap'
+import { Button, Col, Form } from 'react-bootstrap'
 import { connect } from 'react-redux'
 import { Field } from 'redux-form'
-import 'containers/Questions/questions.css'
-import { setQuetion } from 'modules/questions'
+import { addQuestion } from 'modules/questions'
 
 const formControl = ({ input, ...props }) =>
   <Form.Control
@@ -11,9 +10,8 @@ const formControl = ({ input, ...props }) =>
     {...input}
   />
 
-const Questions = () => {
-  const arr = [1, 2, 3]
-  return arr.map((el, i) =>
+const questionsArray = questions => questions.map((el, i) =>
+  <div>
     <Form.Row className='justify-content-center'>
       <Col lg={6}>
         <Form.Group
@@ -27,17 +25,25 @@ const Questions = () => {
         </Form.Group>
       </Col>
     </Form.Row>
+  </div>)
 
-  )
+const Questions = ({ questions, addQuestion }) => {
+  return <div>
+    { questionsArray(questions) }
+    <Form.Row className='justify-content-center'>
+      <Button variant='secondary' onClick={() => addQuestion()}>Добавить вопрос</Button>
+    </Form.Row>
+  </div>
 }
 
 const mapStateToProps = state => ({
-  questions: state.questions
+  questions: state.questions.data
+
 })
 
-const mapDispatchToProps = dispatch => ({
-  onQuestionChange: (num, text) => dispatch(setQuetion(num, text))
-})
+const mapDispatchToProps = {
+  addQuestion
+}
 
 const Connected = connect(
   mapStateToProps,

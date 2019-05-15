@@ -19,6 +19,16 @@ export const setQuetion = (num, text) => {
   }
 }
 
+export const addQuestion = (num, text) => {
+  return async (dispatch, getState) => {
+    await axios.post('/api/questions/set-questions-secure', { num: (num + 1), text })
+    Promise.resolve()
+    dispatch(getQuestions())
+  }
+}
+
+
+
 const initialState = {
   data: []
 }
@@ -26,7 +36,8 @@ const initialState = {
 const questions = (state = initialState, action) => {
   switch (action.type) {
   case GET_QUESTIONS_FROM_DB:
-    return { ...initialState, data: action.payload }
+    const initialValuesArray = action.payload.map(question => question.text)
+    return { ...initialState, data: action.payload, initialValuesArray }
     break
   default:
     break

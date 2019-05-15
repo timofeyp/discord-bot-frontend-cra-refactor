@@ -1,2 +1,7 @@
-const arr = Array(3)
-console.log(arr)
+const outsideFn = () => {
+  insideFn()
+}
+
+const insideFn = () = outsideFn => {
+
+}

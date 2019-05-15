@@ -1,11 +1,9 @@
 import React, { useEffect } from 'react'
-import axios from 'axios/index'
-import { Form, InputGroup, Container, FormControl, Col } from 'react-bootstrap'
+import { Form, InputGroup, Container, FormControl, Col, Button } from 'react-bootstrap'
 import connect from 'react-redux/es/connect/connect'
 import 'containers/Settings/settings.css'
-import { setSettings, getSettings } from 'modules/settings'
-import Questions from 'containers/Questions'
-import { compose } from 'redux'
+import { getSettings } from 'modules/settings'
+import Questions from 'containers/Settings/questions'
 import { reduxForm, Field, FieldArray } from 'redux-form'
 import { FaPowerOff } from 'react-icons/fa'
 
@@ -32,12 +30,11 @@ const days = () =>
       type={`checkbox`}
     />)
 
-const settings = ({ getSettings, settings }) => {
+let settings = ({ getSettings, settings }) => {
   useEffect(() => {
     getSettings()
   }, settings
   )
-
   return (
     <Container className='settings-container'>
       <Form.Row className='justify-content-center'>
@@ -84,24 +81,21 @@ const settings = ({ getSettings, settings }) => {
 }
 
 const mapStateToProps = state => ({
-  settings: state.settings
+  settings: state.settings,
+  initialValues: { questions: state.questions.initialValuesArray }
 })
 
 const mapDispatchToProps = {
   getSettings
 }
 
-const Connected = connect(
+settings = reduxForm({
+  form: 'settings'
+})(settings)
+
+settings = connect(
   mapStateToProps,
   mapDispatchToProps
 )(settings)
 
-export default compose(
-  reduxForm({
-    form: 'settings'
-  }),
-  connect(
-    mapStateToProps,
-    mapDispatchToProps
-  )
-)(Connected)
+export default settings
