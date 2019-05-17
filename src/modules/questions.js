@@ -25,6 +25,13 @@ export const addQuestion = num => async (dispatch, getState) => {
     dispatch(getQuestions())
 }
 
+export const moveQuestion = num => async (dispatch, getState) => {
+    const questions = getState().questions.data
+
+  Promise.resolve()
+  dispatch(getQuestions())
+}
+
 
 
 const initialState = {

@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react'
 import { Form, InputGroup, Container, FormControl, Col, Button } from 'react-bootstrap'
 import connect from 'react-redux/es/connect/connect'
-import 'containers/Settings/settings.css'
 import { getSettings } from 'modules/settings'
 import Questions from 'containers/Settings/questions'
 import { reduxForm, Field, FieldArray } from 'redux-form'
@@ -31,7 +30,7 @@ let settings = ({ getSettings, settings }) => {
   }, settings
   )
   return (
-    <Container className='settings-container'>
+    <Container className='settings'>
       <Form.Row className='justify-content-center'>
         <Col lg={6}>
           <Form.Group
@@ -62,7 +61,7 @@ let settings = ({ getSettings, settings }) => {
             className='form-control'
             type={`text`}
           />
-          <InputGroup.Append>
+          <InputGroup.Append className='time-append'>
             <InputGroup.Text>М</InputGroup.Text>
           </InputGroup.Append>
           <Field

@@ -1,0 +1,33 @@
+$width: 0;
+
+.settings {
+  .input-time {
+    max-width: 10em;
+    padding: 12px;
+
+    .time-append {
+      margin-right: -1px;
+    }
+  }
+
+  .questions {
+    question-input:hover .input-group-addon {
+      width: 20px;
+    }
+    .question-input {
+      .input-group-prepend {
+        width: 0;
+      }
+
+      .form-control {
+        border-top-left-radius: 4px;
+        border-bottom-left-radius: 4px;
+      }
+    }
+
+    .prepend-text {
+      background: none;
+      border: none;
+    }
+  }
+}

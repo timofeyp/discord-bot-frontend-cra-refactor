@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import { Container, Row, Col } from 'react-bootstrap'
 import axios from 'axios/index'
-import './app.css'
+import 'assets/sass/app.scss'
 import { connect } from 'react-redux'
 import ReportList from 'containers/ReportsCarousel'
 import Navbar from 'components/Navbar'
