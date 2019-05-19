@@ -11,6 +11,8 @@ import { Switch, Route, withRouter } from 'react-router-dom'
 import Login from 'containers/Login'
 import { compose } from 'redux'
 import { reduxForm } from 'redux-form'
+import { DragDropContext } from 'react-dnd'
+import HTML5Backend from 'react-dnd-html5-backend'
 
 class App extends Component {
   async componentDidMount () {
@@ -45,7 +47,9 @@ const mapDispatchToProps = {
   sessionCheck
 }
 
-export default withRouter(connect(
+const withRouters =  withRouter(connect(
   mapStateToProps,
   mapDispatchToProps
 )(App))
+
+export default DragDropContext(HTML5Backend)(withRouters)

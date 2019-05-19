@@ -21,10 +21,19 @@ import flow from 'lodash/flow'
 const cardSource = {
   beginDrag (props) {
     return {
-      id: props.id
+      id: props.id,
+      index: props.index
     }
   }
 }
+
+const style = {
+  // border: '1px dashed gray',
+  // padding: '0.5rem 1rem',
+  // marginBottom: '.5rem',
+  // backgroundColor: 'white',
+  // cursor: 'move',
+};
 
 const cardTarget = {
   hover (props, monitor, component) {
@@ -77,7 +86,8 @@ const cardTarget = {
 class Question extends React.Component {
   render () {
     const {
-      num,
+      index,
+      id,
       isDragging,
       connectDragSource,
       connectDropTarget
@@ -87,7 +97,7 @@ class Question extends React.Component {
       connectDragSource &&
     connectDropTarget &&
     connectDragSource(
-      connectDropTarget(<div>
+      connectDropTarget(<div style={{ ...style, opacity }}>
         <Form.Row className='justify-content-center'>
           <Col lg={6}>
             <InputGroup className='mb-3 question-input'>
@@ -95,11 +105,11 @@ class Question extends React.Component {
                 <InputGroup.Text className='prepend-text'><FaPowerOff /></InputGroup.Text>
               </InputGroup.Prepend>
               <Field
-                name={`questions.${num}`}
+                name={`questions.${index}`}
                 component='input'
                 className='form-control'
                 type='text'
-                placeholder={`Вопрос ${(num + 1)}`}
+                placeholder={`Вопрос ${id}`}
               />
             </InputGroup>
           </Col>
@@ -119,7 +129,7 @@ export default flow(
       isDragging: monitor.isDragging()
     })
   ),
-  DropTarget('question', cardTarget, (connect) => ({
+  DropTarget('question', cardTarget, connect => ({
     connectDropTarget: connect.dropTarget()
   }))
 )(Question)

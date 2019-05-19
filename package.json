@@ -12,6 +12,7 @@
     "fs": "0.0.2",
     "helmet": "^3.16.0",
     "history": "^4.9.0",
+    "immutability-helper": "^3.0.0",
     "jwt-decode": "^2.2.0",
     "lodash": "^4.17.11",
     "module": "^1.2.5",

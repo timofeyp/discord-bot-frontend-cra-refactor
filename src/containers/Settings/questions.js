@@ -1,8 +1,8 @@
-import React, { useImperativeHandle, useRef } from 'react'
+import React, { useImperativeHandle, useRef, useState, useEffect } from 'react'
 import { Button, Col, Row, Form, InputGroup, Container } from 'react-bootstrap'
 import { connect } from 'react-redux'
 import { Field } from 'redux-form'
-import { addQuestion } from 'modules/questions'
+import { addQuestion, moveQuestion } from 'modules/questions'
 import { FaPowerOff } from 'react-icons/fa'
 import Question from 'containers/Settings/question'
 import {
@@ -19,28 +19,41 @@ import { XYCoord } from 'dnd-core'
 import flow from 'lodash/flow'
 import HTML5Backend from 'react-dnd-html5-backend'
 import { DragDropContext } from 'react-dnd'
+const update = require('immutability-helper')
 
 const cardSource = {
   beginDrag (props) {
     return {
-      num: props.num,
+      num: props.num
     }
   }
 }
 
-const questionsArray = questions =>
-  <div className='questions'>
-    {questions.map((el, i) =>
-      <Question key={i} num={i} />)}
-  </div>
+class Questions extends React.Component {
+  moveCard = (dragIndex, hoverIndex) => {
+    this.props.moveQuestion(dragIndex, hoverIndex)
+  }
 
-const Questions = ({ questions, addQuestion }) => <div>
-  { questions.map((el, i) =>
-    <Question key={i} num={i} />) }
-  <Form.Row className='justify-content-center'>
-    <Button variant='secondary' onClick={() => addQuestion(questions.length + 1)}>Добавить вопрос</Button>
-  </Form.Row>
-</div>
+  render () {
+    const comp = (a, b) => a.num > b.num ? 1 : -1
+    return (<div>
+      {this.props.questions
+        // .sort(comp)
+        .map((card, i) => (
+          <Question
+            key={card.num}
+            index={i}
+            id={card.num}
+            moveCard={this.moveCard}
+          />
+        ))
+      }
+      <Form.Row className='justify-content-center'>
+        <Button variant='secondary' onClick={() => this.props.addQuestion(this.props.questions.length + 1)}>Добавить вопрос</Button>
+      </Form.Row>
+    </div>)
+  }
+}
 
 const mapStateToProps = state => ({
   questions: state.questions.data
@@ -48,7 +61,8 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = {
-  addQuestion
+  addQuestion,
+  moveQuestion
 }
 
 const Connected = connect(
